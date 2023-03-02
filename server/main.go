@@ -6,6 +6,7 @@ import (
 	"dumbsound/routes"
 	"fmt"
 	"net/http"
+	"os"
 
 	// "time"
 
@@ -50,12 +51,15 @@ func main() {
 	// future := time.Now().AddDate(0, 0, 30)
 	// fmt.Println("30 hari ke depan dari hari ini adalah:", future.Format("02 January 2006"))
 
-	port := "5000"
-	fmt.Println("server running localhost:" + port)
+
+	var port = os.Getenv("PORT");
+	fmt.Println("server running :"+port)
+	// port := "5000"
+	// fmt.Println("server running localhost:" + port)
 
 	// Embed the setup allowed in 2 parameter
-	http.ListenAndServe("localhost:"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	http.ListenAndServe(":"+port, handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
 
-	fmt.Println("server running localhost:" + port)
-	http.ListenAndServe("localhost:"+port, r)
+	// fmt.Println("server running localhost:" + port)
+	// http.ListenAndServe("localhost:"+port, r)
 }
